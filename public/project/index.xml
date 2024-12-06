@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Projects on Learning Cloud</title>
-    <link>http://localhost:1313/project/</link>
+    <link>//localhost:1313/project/</link>
     <description>Recent content in Projects on Learning Cloud</description>
     <image>
       <title>Learning Cloud</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.135.0</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 06 Dec 2024 00:40:04 -0700</lastBuildDate>
-    <atom:link href="http://localhost:1313/project/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:1313/project/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Setup a VPC Peering connections between two VPCs across regions on AWS.</title>
-      <link>http://localhost:1313/project/vpc-peering/</link>
+      <link>//localhost:1313/project/vpc-peering/</link>
       <pubDate>Fri, 06 Dec 2024 00:40:04 -0700</pubDate>
-      <guid>http://localhost:1313/project/vpc-peering/</guid>
+      <guid>//localhost:1313/project/vpc-peering/</guid>
       <description>Setup a VPC Peering connections between two VPCs across regions on AWS.</description>
     </item>
     <item>
       <title>How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS.</title>
-      <link>http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/</link>
+      <link>//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/</link>
       <pubDate>Tue, 03 Dec 2024 00:40:04 -0700</pubDate>
-      <guid>http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/</guid>
+      <guid>//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/</guid>
       <description>How to build &amp;amp; deploy a high-availability web application using docker ECS with EC2 on AWS.</description>
     </item>
     <item>
       <title>Build &amp; deploy a high-availability web application using CloudFormation AWS.</title>
-      <link>http://localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/</link>
+      <link>//localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/</link>
       <pubDate>Thu, 28 Nov 2024 00:40:04 -0700</pubDate>
-      <guid>http://localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/</guid>
+      <guid>//localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/</guid>
       <description>Build &amp;amp; deploy a high-availability web application using CloudFormation AWS.</description>
     </item>
   </channel>

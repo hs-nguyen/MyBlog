@@ -2,51 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/project/vpc-peering/</loc>
+    <loc>//localhost:1313/project/vpc-peering/</loc>
     <lastmod>2024-12-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/</loc>
+    <loc>//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/</loc>
     <lastmod>2024-12-03T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/</loc>
+    <loc>//localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/</loc>
     <lastmod>2024-11-28T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/aws-saa-certification/</loc>
+    <loc>//localhost:1313/blog/aws-saa-certification/</loc>
     <lastmod>2024-11-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/h%E1%BB%8Dc-100-ng%C3%A0y-v%E1%BB%9Bi-aws/</loc>
+    <loc>//localhost:1313/blog/h%E1%BB%8Dc-100-ng%C3%A0y-v%E1%BB%9Bi-aws/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/aws/</loc>
+    <loc>//localhost:1313/tags/aws/</loc>
     <lastmod>2024-12-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/ecs/</loc>
+    <loc>//localhost:1313/tags/ecs/</loc>
     <lastmod>2024-12-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>//localhost:1313/</loc>
     <lastmod>2024-12-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/project/</loc>
+    <loc>//localhost:1313/project/</loc>
     <lastmod>2024-12-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>//localhost:1313/tags/</loc>
     <lastmod>2024-12-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/cloudformation/</loc>
+    <loc>//localhost:1313/tags/cloudformation/</loc>
     <lastmod>2024-11-28T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/aws-saa/</loc>
+    <loc>//localhost:1313/tags/aws-saa/</loc>
     <lastmod>2024-11-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/</loc>
+    <loc>//localhost:1313/blog/</loc>
     <lastmod>2024-11-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/certification/</loc>
+    <loc>//localhost:1313/tags/certification/</loc>
     <lastmod>2024-11-06T00:40:04-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>//localhost:1313/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/cloud/</loc>
+    <loc>//localhost:1313/tags/cloud/</loc>
   </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>//localhost:1313/search/</loc>
   </url>
 </urlset>
