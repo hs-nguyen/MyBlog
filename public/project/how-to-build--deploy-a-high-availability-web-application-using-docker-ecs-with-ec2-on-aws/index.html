@@ -9,16 +9,16 @@
 <meta name="keywords" content="AWS, ECS">
 <meta name="description" content="How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS.">
 <meta name="author" content="Me">
-<link rel="canonical" href="//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/">
+<link rel="canonical" href="http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.0d898f4f70604ecf22b8be6a58e3513b4c07abbf356afe4ad3187ecc392fde6b.css" integrity="sha256-DYmPT3BgTs8iuL5qWONRO0wHq781av5K0xh&#43;zDkv3ms=" rel="preload stylesheet" as="style">
-<link rel="icon" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/clouds.png">
-<link rel="apple-touch-icon" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
-<link rel="mask-icon" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/clouds.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="mask-icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/">
 <noscript>
     <style>
         #theme-toggle,
@@ -30,14 +30,14 @@
 </noscript><meta property="og:title" content="How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS." />
 <meta property="og:description" content="How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/" />
-<meta property="og:image" content="//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
+<meta property="og:url" content="http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/" />
+<meta property="og:image" content="http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
 <meta property="article:section" content="project" />
 <meta property="article:published_time" content="2024-12-03T00:40:04-07:00" />
 <meta property="article:modified_time" content="2024-12-03T00:40:04-07:00" /><meta property="og:site_name" content="ExampleSite" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
+<meta name="twitter:image" content="http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
 <meta name="twitter:title" content="How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS."/>
 <meta name="twitter:description" content="How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS."/>
 
@@ -51,13 +51,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Projects",
-      "item": "//localhost:1313/project/"
+      "item": "http://localhost:1313/project/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "How to build \u0026 deploy a high-availability web application using docker ECS with EC2 on AWS.",
-      "item": "//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/"
+      "item": "http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/"
     }
   ]
 }
@@ -75,7 +75,7 @@
   "articleBody": "Kiến trúc dự án Lâu lâu hands-on vài projects để nâng cao chuyên môn \u0026 kỹ năng trong việc sử dụng AWS. Và đây là project mà mình đã làm. Topic: How to build \u0026 deploy a high-availability web application using docker ECS with EC2 on AWS. Time to completed: 45 minutes Region: Singapore Cost: 1$ Các bước chuẩn bị: 1 chiếc Laptop or PC (không cần mạnh) có thể truy cập vào AWS console. IAM user full permission Administrator (không sử dụng User root khi làm lab). Registry domain tại Route 53 khoảng 3$ ( mục đích sử dụng để access dns route 53 thay vì sử dụng dns alb) (optional). Tại đây mình đã registry domain: https://cloud-sangnguyen.click Các bước thực hiện: 1. VPC Setting (VPC, Route table, Public \u0026 Private Subnet, IGW, NGW)\nClick “Create VPC” Resources to create: VPC and more Name: d-vpc-01 IPv4 CIDR block: 10.0.0.0/16 Number of Public subnets: 2 Number of Private subnets: 2 Public subnet CIDR block in ap-southeast-1a: 10.0.0.0/20 Public subnet CIDR block in ap-southeast-1b: 10.0.32.0/20 Private subnet CIDR block in ap-southeast-1a: 10.0.16.0/20 Private subnet CIDR block in ap-southeast-1b: 10.0.48.0/20 Nat gateways: 1 per AZ VPC endpoints: None Preview lại một lần nuk =\u003e Click “Create VPC” (để hoàn tất việc triển khai) Quá trình tạo VPC mất tầm 2 - 3 phút Confirm VPC Lưu ý: Việc triển khai 2 Nat gateways trên 2 AZ sẽ phát sinh thêm chi phí, cần cân nhắc khi làm việc này, hiện tại mình sử dụng credits trong qá trình làm lab.\nLaunch EC2 instance (vai trò Bastion-host) Click “Launch instances” Name: d-ec2-bastion-host AMI: Amazon Linux 2023 Instance type: t3.medium (mình sử dụng t3.medium để xào nấu docker cho nó mượt) (sẽ phát sinh thêm chi phí) Keypair: keypair.singapore.pem Network setting: VPC - required: d-vpc-01 (đã khởi tạo từ đầu) Subnet: Public Subnet Auto-assign public IP: Enable Security groups: click create security group Security group name: d-sg-bastion-host Description: No open port 22 (Vì mình sẽ connect thông qua Session manager) Inbound rule: none Preview =\u003e click “Launch instance” Create Repository ECR Click “Create a repository” Repository name: d-ecr-web-application Image tag mutability: Mutable Encryption settings: AES-256 Confirm repository Tiếp đến quay lại Bastion-host (để xào nấu docker) Connect Bastion-host thông qua Session manager Command line: Yum update -y Yum install git -y Yum install docker -y systemctl start docker git --version docker --version Check Git clone sources html từ github (vì mình không chuyên sâu về dev nên mình download sources free ở trên web) ls -la (list danh mục hiện tại) cd Host-a-Static-Web-App-on-AWS-with-Docker-and-AWS-ECS ls -lart vi Dockerfile - FROM nginx:1.25.3 - COPY ./ /usr/share/nginx/html - EXPOSE 80 - CMD [\"nginx\", \"-g\", \"daemon off;\"] docker build -t web-application . docker images (check images) docker run -d –name web-application -p 8080:80 web-application docker ps -a (check status container) Edit security group for Bastion-host Inbound rules: Type: custom TCP Port range: 8080 Source: Anywhere IPv4 Copy IP Public:8080 (truy cập vào trình duyệt) Modify Iam Role for EC2 (permission allows EC2 access to ECR) Quay lại EC2 Bastion-host (để push image lên ECR) View push command trong ECR thực hiện thứ tự dòng lệnh Check image bên trong ECR Create cluster in ECS Click create cluster Cluster name: d-ecs-cluster-web-application Infrastructure: Amazon EC2 instances Auto Scaling group (ASG): Create new ASG Provisioning model: On-demand Container instance Amazon Machine Image (AMI): Amazon Linux 2023 EC2 instance type: t3.medium EC2 instance role: ecsInstanceRole Desired capacity: Minimum: 4 (scale out theo kiến trúc) Maximum: 4 SSH Key pair: Keypair-singapore Root EBS volume size: 30 Network settings for Amazon EC2 instances VPC: d-vpc-01 Subnets: Specify 2 private subnets Security group: Create a new security group Security group name: d-sg-ecs-web-application Security group description: Allows traffic from ALB \u0026 Bastion-host Inbound rules for security groups: Type: SSH Protocol: TCP Port range: 22 Source: Choose “d-sg-bastion-host” Create Lúc này nó sẽ tự động scale out 4 instances Create Task definition Click “Create task definition” Task definition configuration Task definition family: d-task-definition-web-application Infrastructure requirements Launch type: Amazon EC2 instances Operating system/Architecture: Linux/X86_64 Network mode: bridge Task size CPU: 1vCPU Memory: 3GB Task role: none (tùy bạn có muốn task bên trong container call API AWS services khác không, nếu không thì để trống) Container - 1 Name: Container-web-application Image URI: copy Image URI tại ECR Essential container: Yes Create Create Load Balancers Create target group Create target group Choose a target type: Instances Target group name: d-tg-web-application Protocol: HTTP Port: 80 IP address type: IPv4 VPC: d-vpc-01 Protocol version: HTTP1 Next Register targets (tại đây bạn không cần đăng ký EC2 instance vào trong target group, khi kết nối ALB nó sẽ tự động đăng ký vào target) Create Security group ALB Security group name: d-sg-alb-web-application Description: Allows traffic from Internet VPC: d-vpc-01 Inbound rules: Type: HTTP Protocol: TCP Port range: 80 Sources: Anywhere IPv4 Create security group (hoàn tất việc tạo) Create Load balancer Load balancer types: Application Load Balancer =\u003e Create Load balancer name: d-alb-web-application Scheme: Internet-facing Load balancer IP address type: IPv4 Network mapping VPC: d-vpc-01 Availability Zones: Specify 2 AZ có 2 Public Subnets Security groups: d-sg-alb-web-application Listeners and routing Protocol: HTTP Port: 80 Forward to: d-tg-web-application Create load balancer (hoàn tất việc tạo) Edit security group của d-sg-ecs-web-application Inbound rules =\u003e Add rule Type: All TCP Protocol: TCP Port range: 0 - 65535 Sources: d-sg-alb-web-application (chọn security của ALB) Create services in cluster Create services Environment Compute configuration (advanced) Compute options: Launch type Launch type: EC2 Deployment configuration Application type: Click Service Family: d-task-definition-web-application Revision: 1 (LATEST) Service name: d-ecs-service-web-application Service type: Replica Desired tasks: 4 Load balancing (optional) Load balancer type: Application Load Balancer Load balancer: d-alb-web-application Listener: Use an existing listener Listener: 80:HTTP Target group: Use an existing target group Target group name: d-tg-web-application Create (hoàn tất việc tạo service) Quá trình task running mất tầm 1 - 2 phút Truy cập dns alb để kiểm tra Cấu hình SSL/TLS mã hóa đường truyền truy cập thông qua giao thức HTTPS Tại giao diện ALB Add Listener Listener configuration Protocol: HTTPS Port: 443 Forward to target group: d-tg-web-application Secure listener settings: Default SSL/TLS server certificate Certificate source: From ACM Certificate (from ACM): cloud-sangnguyen.click Edit inbound rules: d-sg-alb-web-application (open port 443) Add inbound rule: Type: HTTPS Protocol: TCP Port range: 443 Source: Anywhere IPv4 Save rules Sử dụng DNS đã đăng ký tại route 53 thay thế cho DNS ALB (optional) Route 53 trên console Create record Routing policy: Simple routing Configure records: define simple record Value/Route traffic to Alias to Application and Classic Load Balancer Asia Pacific (Singapore) Click “Define simple record” Create records (để hoàn tất việc tạo) Confirm record Truy cập https://cloud-sangnguyen.click (test hoạt động) Clean up resources Delete Services in cluster Delete Cluster in ECS Delete Task-definition Delete Application Load Balancer Delete Target group Terminate EC2-Bastion-host Delete Nat gateways Release elastic IP address Delete VPC Kiểm tra kỹ lại all resources một lần nuk, để tránh mất tiền :)\nOk, vừa rồi là một project khá dài cũng khá nhiều công đoạn trong việc triển khai một ứng dụng high-availability sử dụng docker ECS with EC2. Chúc các bạn thành công. ",
   "wordCount" : "1195",
   "inLanguage": "en",
-  "image": "//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E","datePublished": "2024-12-03T00:40:04-07:00",
+  "image": "http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E","datePublished": "2024-12-03T00:40:04-07:00",
   "dateModified": "2024-12-03T00:40:04-07:00",
   "author":{
     "@type": "Person",
@@ -83,14 +83,14 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/"
+    "@id": "http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Learning Cloud",
     "logo": {
       "@type": "ImageObject",
-      "url": "//localhost:1313/%3Clink%20/%20abs%20url%3E"
+      "url": "http://localhost:1313/%3Clink%20/%20abs%20url%3E"
     }
   }
 }
@@ -102,35 +102,35 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="//localhost:1313/" accesskey="h" title="Home (Alt + H)">
-                <img src="//localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
+            <a href="http://localhost:1313/" accesskey="h" title="Home (Alt + H)">
+                <img src="http://localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
                     height="50">Home</a>
             <div class="logo-switches">
             </div>
         </div>
         <ul id="menu">
             <li>
-                <a href="//localhost:1313/" title="Home">
+                <a href="http://localhost:1313/" title="Home">
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/blog" title="Blogs">
+                <a href="http://localhost:1313/blog" title="Blogs">
                     <span>Blogs</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/project" title="Projects">
+                <a href="http://localhost:1313/project" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/tags" title="Tags">
+                <a href="http://localhost:1313/tags" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -141,7 +141,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/project/">Projects</a></div>
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/project/">Projects</a></div>
     <h1 class="post-title entry-hint-parent">
       How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS.
     </h1>
@@ -696,16 +696,16 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="//localhost:1313/tags/aws/">AWS</a></li>
-      <li><a href="//localhost:1313/tags/ecs/">ECS</a></li>
+      <li><a href="http://localhost:1313/tags/aws/">AWS</a></li>
+      <li><a href="http://localhost:1313/tags/ecs/">ECS</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="//localhost:1313/project/vpc-peering/">
+  <a class="prev" href="http://localhost:1313/project/vpc-peering/">
     <span class="title">« Prev</span>
     <br>
     <span>Setup a VPC Peering connections between two VPCs across regions on AWS.</span>
   </a>
-  <a class="next" href="//localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/">
+  <a class="next" href="http://localhost:1313/project/build--deploy-a-high-availability-web-application-using-cloudformation-aws/">
     <span class="title">Next »</span>
     <br>
     <span>Build &amp; deploy a high-availability web application using CloudFormation AWS.</span>
@@ -717,7 +717,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="//localhost:1313/">Learning Cloud</a></span> · 
+        <span>&copy; 2024 <a href="http://localhost:1313/">Learning Cloud</a></span> · 
 
     <span>
         Powered by

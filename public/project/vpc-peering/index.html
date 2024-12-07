@@ -9,16 +9,16 @@
 <meta name="keywords" content="AWS, ECS">
 <meta name="description" content="Setup a VPC Peering connections between two VPCs across regions on AWS.">
 <meta name="author" content="Me">
-<link rel="canonical" href="//localhost:1313/project/vpc-peering/">
+<link rel="canonical" href="http://localhost:1313/project/vpc-peering/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.0d898f4f70604ecf22b8be6a58e3513b4c07abbf356afe4ad3187ecc392fde6b.css" integrity="sha256-DYmPT3BgTs8iuL5qWONRO0wHq781av5K0xh&#43;zDkv3ms=" rel="preload stylesheet" as="style">
-<link rel="icon" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/clouds.png">
-<link rel="apple-touch-icon" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
-<link rel="mask-icon" href="//localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/clouds.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="mask-icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="//localhost:1313/project/vpc-peering/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/project/vpc-peering/">
 <noscript>
     <style>
         #theme-toggle,
@@ -30,14 +30,14 @@
 </noscript><meta property="og:title" content="Setup a VPC Peering connections between two VPCs across regions on AWS." />
 <meta property="og:description" content="Setup a VPC Peering connections between two VPCs across regions on AWS." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="//localhost:1313/project/vpc-peering/" />
-<meta property="og:image" content="//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
+<meta property="og:url" content="http://localhost:1313/project/vpc-peering/" />
+<meta property="og:image" content="http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
 <meta property="article:section" content="project" />
 <meta property="article:published_time" content="2024-12-06T00:40:04-07:00" />
 <meta property="article:modified_time" content="2024-12-06T00:40:04-07:00" /><meta property="og:site_name" content="ExampleSite" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
+<meta name="twitter:image" content="http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
 <meta name="twitter:title" content="Setup a VPC Peering connections between two VPCs across regions on AWS."/>
 <meta name="twitter:description" content="Setup a VPC Peering connections between two VPCs across regions on AWS."/>
 
@@ -51,13 +51,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Projects",
-      "item": "//localhost:1313/project/"
+      "item": "http://localhost:1313/project/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Setup a VPC Peering connections between two VPCs across regions on AWS.",
-      "item": "//localhost:1313/project/vpc-peering/"
+      "item": "http://localhost:1313/project/vpc-peering/"
     }
   ]
 }
@@ -75,7 +75,7 @@
   "articleBody": "Kiến trúc dự án Welcome mọi người đến project của tôi. Tiếp tục là một buổi hands-on để nâng cao kỹ năng trên AWS. Topic: Setup a VPC Peering connections between two VPCs across regions on AWS. Time to complete: 15 minutes Regions: Singapore \u0026 Virginia Giới thiệu một chút: VPC Peering là gì? VPC Peering là một tính năng của VPC đóng vai trò xây dựng luồng kết nối giữa các VPC với nhau trong cùng region, khác region or khác account. Vd: Bạn đang có VPC A \u0026 VPC B trong cùng region với dải CIDR khác nhau, vậy làm thế nào chúng có thể giao tiếp với nhau? VPC Peering sẽ giúp chúng ta giải quyết vấn đề này! Hiểu như là VPC Peering là cây cầu bắt ngang 2 vị trí, từ điểm A có thể đi qa điểm B và ngược lại. Ưu điểm: Xây dựng kết nối riêng giữa các VPCs. Dễ dàng thiết lập và quản lý. Độ trễ thấp. Bảo mật. Tiết kiệm chi phí. Nhược điểm: Khả năng mở rộng: Nếu bạn chỉ có từ 2 -\u003e 3 VPCs thì việc thiết lập VPC Peering không thành vấn đề, nhưng trong tương lai nếu bạn có nhiều hơn 3 VPCs thì VPC peering không phải là giải pháp tối ưu. Thay vào đó chúng ta phải sử dụng Transit Gateway. Thì trong bài này mình sẽ không đề cập về Transit Gateway. Tích hợp: VPC Peering không hỗ trợ kết nối tới mạng, nếu bạn có những giải pháp kết nối bổ sung như VPN or AWS Direct Connect. Các bước thực hiện: Create 2 VPCs trên 2 regions Singapore \u0026 Virginia. Create VPC peering connection tại region Singapore. Update Route table cả 2 VPCs trên 2 regions. Create 2 Security group for 2 VPCs trên 2 regions. Launch EC2 instances trên 2 regions. Ping connection. Clean up resources. Let’s get started Region: Singapore VPC Setting (VPC, Subnets, Route table, IGW) Click Create VPC Resources to create: VPC and more Name: vpc-singapore IPv4 CIDR block: 10.0.0.0/16 Number of Availability Zones (AZs): 1 Number of public subnets: 1 Number of private subnets: 1 NAT gateways ($): None VPC endpoints: None Click Create VPC (hoàn tất việc tạo) Region: Virginia VPC Setting (VPC, Subnets, Route table, IGW) Click Create VPC Resources to create: VPC and more Name: vpc-virginia IPv4 CIDR block: 10.1.0.0/16 Number of Availability Zones (AZs): 1 Number of public subnets: 1 Number of private subnets: 1 NAT gateways ($): None VPC endpoints: None Click Create VPC (hoàn tất việc tạo) Confirm VPC cả 2 regions Region: Singapore Click “Create Peering connection” Name: Demo-VPC-Peering Select a local VPC to peer with: VPC ID (Requester): Specify VPC Singapore Select another VPC to peer with: Account: My account Region: Another Region =\u003e Specify VPC Virginia VPC ID: Copy VPC ID Region Virginia Region: Virginia Tại Region Virginia chúng ta cần phải Accept request từ VPC Peering Singapore. Confirm VPC peering ở cả 2 regions. Update Route table cả 2 VPCs trên 2 regions. Region: Singapore Click Route tables =\u003e Click vpc-singapore-rtb-public Routes =\u003e Edit routes Destination: 10.1.0.0/16 (CIDR block VPC Virginia) Target: Peering Connection Confirm Route table Region: Virginia Click Route tables =\u003e Click vpc-virginia-rtb-public Routes =\u003e Edit routes Destination: 10.0.0.0/16 (CIDR block VPC Singapore) Target: Peering Connection Confirm Route table Create 2 Security group for 2 VPCs trên 2 regions. Region: Singapore Security group name: SecurityGroup-VPC-Sing Description: Allows connection between two VPC VPC: Specify VPC Singapore Inbound rules: Type: SSH Port: 22 Source: Anywhere IPv4 Type: ALL ICMP - IPv4 Port: All Source: 10.1.0.0/16 (CIDR block VPC Virginia) Region: Virginia Security group name: SecurityGroup-VPC-Virginia Description: Allows connection between two VPC VPC: Specify VPC Virginia Inbound rules: Type: SSH Port: 22 Source: Anywhere IPv4 Type: ALL ICMP - IPv4 Port: All Source: 10.0.0.0/16 (CIDR block VPC Singapore) Confirm Security Group ở cả 2 regions. Launch EC2 instances trên 2 regions. Region: Singapore Name and tags: EC2-Singapore AMI: Amazon Linux 2023 Instance type: t2.micro Keypair: Keypair-singapore Network Setting: VPC - required: vpc-singapore-vpc Subnet: Public Subnet Auto-assign public IP: Enable Security Group: SecurityGroup-VPC-Sing Click Launch instance Region: Virginia Name and tags: EC2-Virginia AMI: Amazon Linux 2023 Instance type: t2.micro Keypair: admin.virginia Network Setting: VPC - required: vpc-virginia-vpc Subnet: Public Subnet Auto-assign public IP: Enable Security Group: SecurityGroup-VPC-Virginia Click Launch instance. Confirm EC2 ở cả 2 regions. Ping connection. Instance connect to EC2-Singapore (thực hiện lệnh ping IP private EC2-Virginia) Instance connect to EC2-Virginia (thực hiện lệnh ping IP private EC2-Singapore) Clean up resources. Terminate 2 EC2 instance on 2 regions Delete Peering connections Delete 2 VPCs on 2 regions OK, cuối cùng mình đã làm xong project về VPC Peering, chỉ mất khoảng 15 phút cho bài lab lần này khá nhanh. Ngoài VPC peering ra các bạn có thể tìm hiểu và đọc thêm về Transit Gateway nha. Chúc các bạn thành công. ",
   "wordCount" : "818",
   "inLanguage": "en",
-  "image": "//localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E","datePublished": "2024-12-06T00:40:04-07:00",
+  "image": "http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E","datePublished": "2024-12-06T00:40:04-07:00",
   "dateModified": "2024-12-06T00:40:04-07:00",
   "author":{
     "@type": "Person",
@@ -83,14 +83,14 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "//localhost:1313/project/vpc-peering/"
+    "@id": "http://localhost:1313/project/vpc-peering/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Learning Cloud",
     "logo": {
       "@type": "ImageObject",
-      "url": "//localhost:1313/%3Clink%20/%20abs%20url%3E"
+      "url": "http://localhost:1313/%3Clink%20/%20abs%20url%3E"
     }
   }
 }
@@ -102,35 +102,35 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="//localhost:1313/" accesskey="h" title="Home (Alt + H)">
-                <img src="//localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
+            <a href="http://localhost:1313/" accesskey="h" title="Home (Alt + H)">
+                <img src="http://localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
                     height="50">Home</a>
             <div class="logo-switches">
             </div>
         </div>
         <ul id="menu">
             <li>
-                <a href="//localhost:1313/" title="Home">
+                <a href="http://localhost:1313/" title="Home">
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/blog" title="Blogs">
+                <a href="http://localhost:1313/blog" title="Blogs">
                     <span>Blogs</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/project" title="Projects">
+                <a href="http://localhost:1313/project" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="//localhost:1313/tags" title="Tags">
+                <a href="http://localhost:1313/tags" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -141,7 +141,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="//localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="//localhost:1313/project/">Projects</a></div>
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/project/">Projects</a></div>
     <h1 class="post-title entry-hint-parent">
       Setup a VPC Peering connections between two VPCs across regions on AWS.
     </h1>
@@ -438,11 +438,11 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="//localhost:1313/tags/aws/">AWS</a></li>
-      <li><a href="//localhost:1313/tags/ecs/">ECS</a></li>
+      <li><a href="http://localhost:1313/tags/aws/">AWS</a></li>
+      <li><a href="http://localhost:1313/tags/ecs/">ECS</a></li>
     </ul>
 <nav class="paginav">
-  <a class="next" href="//localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/">
+  <a class="next" href="http://localhost:1313/project/how-to-build--deploy-a-high-availability-web-application-using-docker-ecs-with-ec2-on-aws/">
     <span class="title">Next »</span>
     <br>
     <span>How to build &amp; deploy a high-availability web application using docker ECS with EC2 on AWS.</span>
@@ -454,7 +454,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="//localhost:1313/">Learning Cloud</a></span> · 
+        <span>&copy; 2024 <a href="http://localhost:1313/">Learning Cloud</a></span> · 
 
     <span>
         Powered by
