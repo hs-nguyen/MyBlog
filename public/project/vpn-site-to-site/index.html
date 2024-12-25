@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>VPN site-to-site setup. | Learning Cloud</title>
+<meta name="keywords" content="AWS, ECS, VPC">
+<meta name="description" content="How setup a VPN connection on AWS.">
+<meta name="author" content="Me">
+<link rel="canonical" href="http://localhost:1313/project/vpn-site-to-site/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0d898f4f70604ecf22b8be6a58e3513b4c07abbf356afe4ad3187ecc392fde6b.css" integrity="sha256-DYmPT3BgTs8iuL5qWONRO0wHq781av5K0xh&#43;zDkv3ms=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/clouds.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<link rel="mask-icon" href="http://localhost:1313/%3Clink%20/%20abs%20url%3E">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/project/vpn-site-to-site/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta property="og:title" content="VPN site-to-site setup." />
+<meta property="og:description" content="How setup a VPN connection on AWS." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/project/vpn-site-to-site/" />
+<meta property="og:image" content="http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
+<meta property="article:section" content="project" />
+<meta property="article:published_time" content="2024-12-25T00:40:04-07:00" />
+<meta property="article:modified_time" content="2024-12-25T00:40:04-07:00" /><meta property="og:site_name" content="ExampleSite" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E" />
+<meta name="twitter:title" content="VPN site-to-site setup."/>
+<meta name="twitter:description" content="How setup a VPN connection on AWS."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Projects",
+      "item": "http://localhost:1313/project/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "VPN site-to-site setup.",
+      "item": "http://localhost:1313/project/vpn-site-to-site/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "VPN site-to-site setup.",
+  "name": "VPN site-to-site setup.",
+  "description": "How setup a VPN connection on AWS.",
+  "keywords": [
+    "AWS", "ECS", "VPC"
+  ],
+  "articleBody": "Kiến trúc dự án: Welcome mọi người đến với bài lab của tôi, lại là một bài hands-on liên quan tới networking. Topic: VPN site-to-site setup Time to complete: 30 minutes Region: Singapore Thông tin dự án: Hiện tại do mình không có môi trường on-premise nên mình sẽ mô phỏng một môi trường ảo trên cloud đóng vai trò là on-premise. Thì dự án của mình bao gồm 2 phần: Phần 1: Khởi tạo 2 VPCs \u0026 launch EC2 instances theo kiến trúc. Phần 2: Thiết lập VPN connection. Các bước thực hiện: Create AWS-VPC VPC settings: Resources to create: VPC and more Name: AWS-VPC IPv4 CIDR block: 10.0.0.0/16 Number of Availability Zones (AZs): 2 Number of public subnets: 2 Number of private subnets: 2 NAT gateways: In 1 AZ VPC endpoints: None Create VPC-On-premise VPC settings: Resources to create: VPC and more Name: VPC-ON-PREMISE IPv4 CIDR block: 192.168.1.0/24 Number of Availability Zones (AZs): 1 Number of public subnets: 1 Number of private subnets: 1 NAT gateways: None VPC endpoints: None Confirm 2 VPCs Create Security group AWS-VPC Click “Create security group” Security group name: SecurityGroup-AWS-VPC Description: Allows traffic to connection VPN VPC: AWS-VPC-vpc Inbound rules: Type: All ICMP - IPv4 Sources: Anywhere IPv4 Create Security group VPC-On-premise Click “Create security group” Security group name: SecurityGroup-VPC-On-Premise Description: Allows traffic to connect VPN VPC: VPC-ON-PREMISE-vpc Inbound rules: Type: All ICMP - IPv4 Sources: Anywhere IPv4 Type: SSH Sources: MyIP Launch EC2 instance “OpenSwan” Name and tags: OpenSwan AMI: Amazon Linux 2 AMI Instance type: t2.micro Key pair: Keypair-singapore Network settings: VPC - required: VPC-ON-PREMISE-vpc Subnet: Public Subnet Auto-assign public IP: Enable Security group: SecurityGroup-VPC-On-premise Launch EC2 instance “Internal Server” Name and tags: Internal Server AMI: Amazon Linux 2023 Instance type: t2.micro Key pair: Keypair-singapore Network settings: VPC - required: VPC-ON-PREMISE-vpc Subnet: Private subnet Auto-assign public IP: Disable Security group: SecurityGroup-VPC-On-Premise Launch EC2 instance “EC2-Public” Name and tags: EC2-Public AMI: Amazon Linux 2023 Instance type: t2.micro Key pair: Keypair-singapore Network settings: VPC - required: AWS-VPC-vpc Subnet: Public subnet Auto-assign public IP: Enable Security group: SecurityGroup-AWS-VPC Tiếp theo Disable-destination của instance “OpenSwan” Thiết lập Customer gateways. Click “Create customer gateway” Name tag: CGW-ON-PREMISE BGP ASN: 65000 IP address: 52.221.239.121 (Copy IP public “OpenSwan”) Confirm customer gateway Thiết lập Virtual private gateways. Click “Create virtual private gateway” Name tag: VGW-AWS-VPC Attach to VPC Availability VPCs: AWS-VPC-vpc =\u003e Attach to VPC Confirm Virtual private gateway Edit Route table “VPC-AWS-rtb-public” Thiết lập VPN connection. Click “Create VPN connection” Name tag: VPN-ON-PREMISE-TO-AWS-VPC Virtual private gateway: Specify VGW Customer gateway ID: Specify CGW Routing options: Static Static IP prefixes: 192.168.1.0/24 10.0.0.0/16 Local IPv4 network CIDR - optional: 192.168.1.0/24 Remote IPv4 network CIDR - optional: 10.0.0.0/16 Confirm VPN connection Tiếp theo download configuration file Open file bằng notepad Thực hiện các bước bên trong file SSH vào ec2 instance “OpenSwan” để tiến hành config vpn cli: nano /etc/sysctl.conf cli: sysctl -p cli: yum install openswan -y cli: nano /etc/ipsec.d/aws.conf cli: nano /etc/ipsec.d/aws.secrets cli: systemctl start ipsec cli: systemctl status ipsec Ping ip private instance “EC2-Public” Tiếp theo ssh vào instance “Internal Server” để ping ip private instance “EC2-public” Edit Route table private Ping ip private instance “EC2-public” Clean up resources Terminate all instances Delete the VPN connection Detach VPC from Virtual private gateways =\u003e Delete Virtual private gateways Delete Customer gateways Delete Nat gateway Release Elastic IP Delete 2 VPCs =\u003e Recheck lại một lần nuk, để tránh phát sinh chi phí.\nVừa rồi là một bài hands-on cũng hơi dài và cũng có nhiều công đoạn để mà setup vpn connection, hy vọng rằng bài lab này có thể giúp các bạn setup thành công. Thanks all mọi người. ",
+  "wordCount" : "612",
+  "inLanguage": "en",
+  "image": "http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E","datePublished": "2024-12-25T00:40:04-07:00",
+  "dateModified": "2024-12-25T00:40:04-07:00",
+  "author":{
+    "@type": "Person",
+    "name": "Me"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/project/vpn-site-to-site/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Learning Cloud",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/%3Clink%20/%20abs%20url%3E"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Home (Alt + H)">
+                <img src="http://localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="50">Home</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/blog" title="Blogs">
+                    <span>Blogs</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/project" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/project/">Projects</a></div>
+    <h1 class="post-title entry-hint-parent">
+      VPN site-to-site setup.
+    </h1>
+    <div class="post-description">
+      How setup a VPN connection on AWS.
+    </div>
+    <div class="post-meta"><span title='2024-12-25 00:40:04 -0700 -0700'>December 25, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Me
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="kiến-trúc-dự-án">Kiến trúc dự án:<a hidden class="anchor" aria-hidden="true" href="#kiến-trúc-dự-án">#</a></h2>
+<p><img loading="lazy" src="/images/vpn/VPN.png" alt="vpc"  />
+</p>
+<ul>
+<li>Welcome mọi người đến với bài lab của tôi, lại là một bài hands-on liên quan tới networking.</li>
+<li><strong>Topic:</strong> VPN site-to-site setup</li>
+<li><strong>Time to complete:</strong> 30 minutes</li>
+<li><strong>Region:</strong> Singapore</li>
+</ul>
+<h2 id="thông-tin-dự-án">Thông tin dự án:<a hidden class="anchor" aria-hidden="true" href="#thông-tin-dự-án">#</a></h2>
+<ul>
+<li>Hiện tại do mình không có môi trường on-premise nên mình sẽ mô phỏng một môi trường ảo trên cloud đóng vai trò là on-premise.</li>
+<li>Thì dự án của mình bao gồm 2 phần:
+<ul>
+<li><strong>Phần 1:</strong> Khởi tạo 2 VPCs &amp; launch EC2 instances theo kiến trúc.</li>
+<li><strong>Phần 2:</strong> Thiết lập VPN connection.</li>
+</ul>
+</li>
+</ul>
+<h2 id="các-bước-thực-hiện">Các bước thực hiện:<a hidden class="anchor" aria-hidden="true" href="#các-bước-thực-hiện">#</a></h2>
+<h4 id="create-aws-vpc">Create AWS-VPC<a hidden class="anchor" aria-hidden="true" href="#create-aws-vpc">#</a></h4>
+<ul>
+<li><strong>VPC settings:</strong>
+<ul>
+<li><strong>Resources to create:</strong> VPC and more</li>
+<li><strong>Name:</strong> AWS-VPC</li>
+<li><strong>IPv4 CIDR block:</strong> 10.0.0.0/16
+<img loading="lazy" src="/images/vpn/aws-vpc/vpc1.png" alt="vpc"  />
+</li>
+<li><strong>Number of Availability Zones (AZs):</strong> 2</li>
+<li><strong>Number of public subnets:</strong> 2</li>
+<li><strong>Number of private subnets:</strong> 2
+<img loading="lazy" src="/images/vpn/aws-vpc/vpc2.png" alt="vpc"  />
+</li>
+<li><strong>NAT gateways:</strong> In 1 AZ</li>
+<li><strong>VPC endpoints:</strong> None
+<img loading="lazy" src="/images/vpn/aws-vpc/vpc3.png" alt="vpc"  />
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="create-vpc-on-premise">Create VPC-On-premise<a hidden class="anchor" aria-hidden="true" href="#create-vpc-on-premise">#</a></h4>
+<ul>
+<li><strong>VPC settings:</strong>
+<ul>
+<li><strong>Resources to create:</strong> VPC and more</li>
+<li><strong>Name:</strong> VPC-ON-PREMISE</li>
+<li><strong>IPv4 CIDR block:</strong> 192.168.1.0/24
+<img loading="lazy" src="/images/vpn/aws-vpc/vpc4.png" alt="vpc"  />
+</li>
+<li><strong>Number of Availability Zones (AZs):</strong> 1</li>
+<li><strong>Number of public subnets:</strong> 1</li>
+<li><strong>Number of private subnets:</strong> 1
+<img loading="lazy" src="/images/vpn/aws-vpc/vpc5.png" alt="vpc"  />
+</li>
+<li><strong>NAT gateways:</strong> None</li>
+<li><strong>VPC endpoints:</strong> None
+<img loading="lazy" src="/images/vpn/aws-vpc/vpc6.png" alt="vpc"  />
+</li>
+</ul>
+</li>
+<li>Confirm 2 VPCs</li>
+</ul>
+<h4 id="create-security-group-aws-vpc">Create Security group AWS-VPC<a hidden class="anchor" aria-hidden="true" href="#create-security-group-aws-vpc">#</a></h4>
+<ul>
+<li>Click &ldquo;Create security group&rdquo;
+<img loading="lazy" src="/images/vpn/aws-vpc/sg.png" alt="sg"  />
+</li>
+<li><strong>Security group name:</strong> SecurityGroup-AWS-VPC</li>
+<li><strong>Description:</strong> Allows traffic to connection VPN</li>
+<li><strong>VPC:</strong> AWS-VPC-vpc
+<img loading="lazy" src="/images/vpn/aws-vpc/sg1.png" alt="sg"  />
+</li>
+<li><strong>Inbound rules:</strong>
+<ul>
+<li><strong>Type:</strong> All ICMP - IPv4</li>
+<li><strong>Sources:</strong> Anywhere IPv4
+<img loading="lazy" src="/images/vpn/aws-vpc/sg2.png" alt="sg"  />
+
+<img loading="lazy" src="/images/vpn/aws-vpc/sg3.png" alt="sg"  />
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="create-security-group-vpc-on-premise">Create Security group VPC-On-premise<a hidden class="anchor" aria-hidden="true" href="#create-security-group-vpc-on-premise">#</a></h4>
+<ul>
+<li>Click &ldquo;Create security group&rdquo;</li>
+<li><strong>Security group name:</strong> SecurityGroup-VPC-On-Premise</li>
+<li><strong>Description:</strong> Allows traffic to connect VPN</li>
+<li><strong>VPC:</strong> VPC-ON-PREMISE-vpc
+<img loading="lazy" src="/images/vpn/aws-vpc/sg4.png" alt="sg"  />
+</li>
+<li><strong>Inbound rules:</strong>
+<ul>
+<li><strong>Type:</strong> All ICMP - IPv4</li>
+<li><strong>Sources:</strong> Anywhere IPv4</li>
+<li><strong>Type:</strong> SSH</li>
+<li><strong>Sources:</strong> MyIP
+<img loading="lazy" src="/images/vpn/aws-vpc/sg5.png" alt="sg"  />
+
+<img loading="lazy" src="/images/vpn/aws-vpc/sg6.png" alt="sg"  />
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="launch-ec2-instance-openswan">Launch EC2 instance &ldquo;OpenSwan&rdquo;<a hidden class="anchor" aria-hidden="true" href="#launch-ec2-instance-openswan">#</a></h4>
+<ul>
+<li><strong>Name and tags:</strong> OpenSwan
+<img loading="lazy" src="/images/vpn/aws-on-premise/ec2.png" alt="ec2"  />
+</li>
+<li><strong>AMI:</strong> Amazon Linux 2 AMI
+<img loading="lazy" src="/images/vpn/aws-on-premise/ec2-1.png" alt="ec2"  />
+</li>
+<li><strong>Instance type:</strong> t2.micro
+<img loading="lazy" src="/images/vpn/aws-on-premise/ec2-2.png" alt="ec2"  />
+</li>
+<li><strong>Key pair:</strong> Keypair-singapore
+<img loading="lazy" src="/images/vpn/aws-on-premise/ec2-3.png" alt="ec2"  />
+</li>
+<li><strong>Network settings:</strong>
+<ul>
+<li><strong>VPC - required:</strong> VPC-ON-PREMISE-vpc</li>
+<li><strong>Subnet:</strong> Public Subnet</li>
+<li><strong>Auto-assign public IP:</strong> Enable</li>
+<li><strong>Security group:</strong> SecurityGroup-VPC-On-premise
+<img loading="lazy" src="/images/vpn/aws-on-premise/ec2-4.png" alt="ec2"  />
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="launch-ec2-instance-internal-server">Launch EC2 instance &ldquo;Internal Server&rdquo;<a hidden class="anchor" aria-hidden="true" href="#launch-ec2-instance-internal-server">#</a></h4>
+<ul>
+<li><strong>Name and tags:</strong> Internal Server
+<img loading="lazy" src="/images/vpn/aws-on-premise/internal-sv.png" alt="ec2"  />
+</li>
+<li><strong>AMI:</strong> Amazon Linux 2023
+<img loading="lazy" src="/images/vpn/aws-on-premise/internal-sv1.png" alt="ec2"  />
+</li>
+<li><strong>Instance type:</strong> t2.micro
+<img loading="lazy" src="/images/vpn/aws-on-premise/internal-sv2.png" alt="ec2"  />
+</li>
+<li><strong>Key pair:</strong> Keypair-singapore
+<img loading="lazy" src="/images/vpn/aws-on-premise/internal-sv3.png" alt="ec2"  />
+</li>
+<li><strong>Network settings:</strong>
+<ul>
+<li><strong>VPC - required:</strong> VPC-ON-PREMISE-vpc</li>
+<li><strong>Subnet:</strong> Private subnet</li>
+<li><strong>Auto-assign public IP:</strong> Disable</li>
+<li><strong>Security group:</strong> SecurityGroup-VPC-On-Premise
+<img loading="lazy" src="/images/vpn/aws-on-premise/internal-sv4.png" alt="ec2"  />
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="launch-ec2-instance-ec2-public">Launch EC2 instance &ldquo;EC2-Public&rdquo;<a hidden class="anchor" aria-hidden="true" href="#launch-ec2-instance-ec2-public">#</a></h4>
+<ul>
+<li><strong>Name and tags:</strong> EC2-Public
+<img loading="lazy" src="/images/vpn/aws-vpc/ec2.png" alt="ec2"  />
+</li>
+<li><strong>AMI:</strong> Amazon Linux 2023
+<img loading="lazy" src="/images/vpn/aws-vpc/ec2-1.png" alt="ec2"  />
+</li>
+<li><strong>Instance type:</strong> t2.micro
+<img loading="lazy" src="/images/vpn/aws-vpc/ec2-2.png" alt="ec2"  />
+</li>
+<li><strong>Key pair:</strong> Keypair-singapore
+<img loading="lazy" src="/images/vpn/aws-vpc/ec2-3.png" alt="ec2"  />
+</li>
+<li><strong>Network settings:</strong>
+<ul>
+<li><strong>VPC - required:</strong> AWS-VPC-vpc</li>
+<li><strong>Subnet:</strong> Public subnet</li>
+<li><strong>Auto-assign public IP:</strong> Enable</li>
+<li><strong>Security group:</strong> SecurityGroup-AWS-VPC
+<img loading="lazy" src="/images/vpn/aws-vpc/ec2-4.png" alt="ec2"  />
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="tiếp-theo-disable-destination-của-instance-openswan">Tiếp theo Disable-destination của instance &ldquo;OpenSwan&rdquo;<a hidden class="anchor" aria-hidden="true" href="#tiếp-theo-disable-destination-của-instance-openswan">#</a></h4>
+<p><img loading="lazy" src="/images/vpn/aws-on-premise/Disable-Destination.png" alt="ec2"  />
+
+<img loading="lazy" src="/images/vpn/aws-on-premise/Disable-Destination1.png" alt="ec2"  />
+</p>
+<h4 id="thiết-lập-customer-gateways">Thiết lập Customer gateways.<a hidden class="anchor" aria-hidden="true" href="#thiết-lập-customer-gateways">#</a></h4>
+<ul>
+<li>Click &ldquo;Create customer gateway&rdquo;
+<img loading="lazy" src="/images/vpn/aws-vpc/cgw.png" alt="cgw"  />
+</li>
+<li><strong>Name tag:</strong> CGW-ON-PREMISE</li>
+<li><strong>BGP ASN:</strong> 65000</li>
+<li><strong>IP address:</strong> 52.221.239.121 (Copy IP public &ldquo;OpenSwan&rdquo;)
+<img loading="lazy" src="/images/vpn/aws-vpc/cgw1.png" alt="cgw"  />
+
+<img loading="lazy" src="/images/vpn/aws-vpc/cgw2.png" alt="cgw"  />
+</li>
+<li>Confirm customer gateway
+<img loading="lazy" src="/images/vpn/aws-vpc/cgw3.png" alt="cgw"  />
+</li>
+</ul>
+<h4 id="thiết-lập-virtual-private-gateways">Thiết lập Virtual private gateways.<a hidden class="anchor" aria-hidden="true" href="#thiết-lập-virtual-private-gateways">#</a></h4>
+<ul>
+<li>Click &ldquo;Create virtual private gateway&rdquo;
+<img loading="lazy" src="/images/vpn/aws-vpc/vgw.png" alt="vgw"  />
+</li>
+<li><strong>Name tag:</strong> VGW-AWS-VPC
+<img loading="lazy" src="/images/vpn/aws-vpc/vgw1.png" alt="vgw"  />
+</li>
+<li><strong>Attach to VPC</strong></li>
+<li><strong>Availability VPCs:</strong> AWS-VPC-vpc
+<img loading="lazy" src="/images/vpn/aws-vpc/vgw2.png" alt="vgw"  />
+</li>
+<li>=&gt; Attach to VPC
+<img loading="lazy" src="/images/vpn/aws-vpc/vgw3.png" alt="vgw"  />
+</li>
+<li>Confirm Virtual private gateway
+<img loading="lazy" src="/images/vpn/aws-vpc/vgw4.png" alt="vgw"  />
+</li>
+<li>Edit Route table &ldquo;VPC-AWS-rtb-public&rdquo;
+<img loading="lazy" src="/images/vpn/aws-vpc/rtb.png" alt="rtb"  />
+
+<img loading="lazy" src="/images/vpn/aws-vpc/rtb1.png" alt="rtb"  />
+</li>
+</ul>
+<h4 id="thiết-lập-vpn-connection">Thiết lập VPN connection.<a hidden class="anchor" aria-hidden="true" href="#thiết-lập-vpn-connection">#</a></h4>
+<ul>
+<li>Click &ldquo;Create VPN connection&rdquo;
+<img loading="lazy" src="/images/vpn/aws-vpc/vpn.png" alt="vpn"  />
+</li>
+<li><strong>Name tag:</strong> VPN-ON-PREMISE-TO-AWS-VPC</li>
+<li><strong>Virtual private gateway:</strong> Specify VGW</li>
+<li><strong>Customer gateway ID:</strong> Specify CGW</li>
+<li><strong>Routing options:</strong> Static</li>
+<li><strong>Static IP prefixes:</strong>
+<ul>
+<li>192.168.1.0/24</li>
+<li>10.0.0.0/16
+<img loading="lazy" src="/images/vpn/aws-vpc/vpn1.png" alt="vpn"  />
+</li>
+</ul>
+</li>
+<li><strong>Local IPv4 network CIDR - optional:</strong> 192.168.1.0/24</li>
+<li><strong>Remote IPv4 network CIDR - optional:</strong> 10.0.0.0/16
+<img loading="lazy" src="/images/vpn/aws-vpc/vpn2.png" alt="vpn"  />
+
+<img loading="lazy" src="/images/vpn/aws-vpc/vpn3.png" alt="vpn"  />
+</li>
+<li>Confirm VPN connection
+<img loading="lazy" src="/images/vpn/aws-vpc/vpn4.png" alt="vpn"  />
+</li>
+<li>Tiếp theo download configuration file
+<img loading="lazy" src="/images/vpn/aws-vpc/file.png" alt="vpn"  />
+</li>
+<li>Open file bằng notepad
+<img loading="lazy" src="/images/vpn/aws-vpc/file1.png" alt="vpn"  />
+</li>
+<li>Thực hiện các bước bên trong file
+<img loading="lazy" src="/images/vpn/aws-vpc/file2.png" alt="vpn"  />
+</li>
+<li>SSH vào ec2 instance &ldquo;OpenSwan&rdquo; để tiến hành config vpn
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh.png" alt="ssh"  />
+</li>
+<li><strong>cli:</strong> nano /etc/sysctl.conf
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh1.png" alt="ssh"  />
+</li>
+<li><strong>cli:</strong> sysctl -p
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh2.png" alt="ssh"  />
+</li>
+<li><strong>cli:</strong> yum install openswan -y
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh3.png" alt="ssh"  />
+</li>
+<li><strong>cli:</strong> nano /etc/ipsec.d/aws.conf
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh4.png" alt="ssh"  />
+</li>
+<li><strong>cli:</strong> nano /etc/ipsec.d/aws.secrets
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh5.png" alt="ssh"  />
+</li>
+<li><strong>cli:</strong> systemctl start ipsec</li>
+<li><strong>cli:</strong> systemctl status ipsec
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh6.png" alt="ssh"  />
+
+<img loading="lazy" src="/images/vpn/aws-vpc/vpn5.png" alt="ssh"  />
+</li>
+<li>Ping ip private instance &ldquo;EC2-Public&rdquo;
+<img loading="lazy" src="/images/vpn/aws-vpc/ssh7.png" alt="ssh"  />
+</li>
+<li>Tiếp theo ssh vào instance &ldquo;Internal Server&rdquo; để ping ip private instance &ldquo;EC2-public&rdquo;</li>
+<li>Edit Route table private
+<img loading="lazy" src="/images/vpn/aws-on-premise/rtb.png" alt="rtb"  />
+
+<img loading="lazy" src="/images/vpn/aws-on-premise/rtb1.png" alt="rtb"  />
+
+<img loading="lazy" src="/images/vpn/aws-on-premise/rtb2.png" alt="rtb"  />
+</li>
+<li>Ping ip private instance &ldquo;EC2-public&rdquo;
+<img loading="lazy" src="/images/vpn/aws-on-premise/ping-success.png" alt="rtb"  />
+</li>
+</ul>
+<h4 id="clean-up-resources">Clean up resources<a hidden class="anchor" aria-hidden="true" href="#clean-up-resources">#</a></h4>
+<ol>
+<li>Terminate all instances</li>
+<li>Delete the VPN connection</li>
+<li>Detach VPC from Virtual private gateways =&gt; Delete Virtual private gateways</li>
+<li>Delete Customer gateways</li>
+<li>Delete Nat gateway</li>
+<li>Release Elastic IP</li>
+<li>Delete 2 VPCs</li>
+</ol>
+<p>=&gt; Recheck lại một lần nuk, để tránh phát sinh chi phí.</p>
+<ul>
+<li>Vừa rồi là một bài hands-on cũng hơi dài và cũng có nhiều công đoạn để mà setup vpn connection, hy vọng rằng bài lab này có thể giúp các bạn setup thành công.</li>
+<li>Thanks all mọi người.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/aws/">AWS</a></li>
+      <li><a href="http://localhost:1313/tags/ecs/">ECS</a></li>
+      <li><a href="http://localhost:1313/tags/vpc/">VPC</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/project/vpc-peering/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Setup a VPC Peering connections between two VPCs across regions on AWS.</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="http://localhost:1313/">Learning Cloud</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+</body>
+
+</html>

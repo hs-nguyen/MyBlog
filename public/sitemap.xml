@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/project/vpn-site-to-site/</loc>
+    <lastmod>2024-12-25T00:40:04-07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/project/vpc-peering/</loc>
     <lastmod>2024-12-06T00:40:04-07:00</lastmod>
   </url><url>
@@ -17,19 +20,22 @@
     <loc>http://localhost:1313/blog/h%E1%BB%8Dc-100-ng%C3%A0y-v%E1%BB%9Bi-aws/</loc>
   </url><url>
     <loc>http://localhost:1313/tags/aws/</loc>
-    <lastmod>2024-12-06T00:40:04-07:00</lastmod>
+    <lastmod>2024-12-25T00:40:04-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/ecs/</loc>
-    <lastmod>2024-12-06T00:40:04-07:00</lastmod>
+    <lastmod>2024-12-25T00:40:04-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-12-06T00:40:04-07:00</lastmod>
+    <lastmod>2024-12-25T00:40:04-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/project/</loc>
-    <lastmod>2024-12-06T00:40:04-07:00</lastmod>
+    <lastmod>2024-12-25T00:40:04-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-12-06T00:40:04-07:00</lastmod>
+    <lastmod>2024-12-25T00:40:04-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/vpc/</loc>
+    <lastmod>2024-12-25T00:40:04-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/cloudformation/</loc>
     <lastmod>2024-11-28T00:40:04-07:00</lastmod>

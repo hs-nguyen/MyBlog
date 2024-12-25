@@ -83,7 +83,7 @@ params:
     imageTitle: my images
   # home-info mode
   homeInfoParams:
-    Title: "Nguyễn Sáng \U0001F44B"
+    Title: "About me \U0001F44B"
     Content: Mình có background về ngành IT, và cũng có thời gian làm về IT Services cung cấp các giải pháp mạng, camera. Tuy nhiên, sau khoảng thời gian xuất ngũ cũng không có nhiều cơ hội để vọc vạch về ngành. Hiện tại, đang học dần về Cloud và mong muốn xây dựng Blogs này để lưu trữ những dự án cá nhân. Hy vọng có thể giúp gì được cho mấy bạn trong hành trình lên mây của bản thân.
 
 

@@ -4,7 +4,7 @@ description: "Setup a VPC Peering connections between two VPCs across regions on
 dateString: December 2024
 date: 2024-12-06T00:40:04-07:00
 draft: false
-tags: ["AWS","ECS"]
+tags: ["AWS","VPC"]
 weight: 101
 ---
 ## Kiến trúc dự án
